@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harbor. Kuir icması üçün media</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiByeD0iNiIgZmlsbD0iIzFEMjczMyIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iMTUiIHI9IjEyLjUiIHN0cm9rZT0iIzZFQzZFOCIgc3Ryb2tlLXdpZHRoPSIxLjQiIG9wYWNpdHk9IjAuNTUiLz48cGF0aCBkPSJNNi41IDE4LjVDOSAyMC43IDEyIDIxLjggMTUgMjEuOEMxOCAyMS44IDIxIDIwLjcgMjMuNSAxOC41IiBzdHJva2U9IiNBOURFRjAiIHN0cm9rZS13aWR0aD0iMS43IiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMTUgNi41VjE3LjUiIHN0cm9rZT0iI0Q5N0M5OSIgc3Ryb2tlLXdpZHRoPSIxLjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xNSA2LjVMMTguNiA4LjYiIHN0cm9rZT0iI0Q5N0M5OSIgc3Ryb2tlLXdpZHRoPSIxLjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iMTcuNiIgcj0iMi4xIiBmaWxsPSIjRjZGNEYwIi8+PC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1D2733;
+    --ink-soft:#44586A;
+    --paper:#F6F4F0;
+    --paper-dim:#EAE6DE;
+    --panel:#16212C;
+    --accent:#6EC6E8;
+    --accent-soft:#A9DEF0;
+    --berry:#D97C99;
+    --line: rgba(246,244,240,0.14);
+    --line-dark: rgba(29,39,51,0.12);
+    --radius: 3px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.12;
+    margin:0 0 0.4em 0;
+    color:var(--ink);
+  }
+  p{margin:0 0 1em 0; max-width:62ch;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ---- top nav ---- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    color:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-wrap{
+    max-width:1080px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand svg{ flex-shrink:0; display:block; }
+  .brand-word{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.4rem;
+    color:var(--accent-soft);
+    letter-spacing:0.2px;
+  }
+  nav.tabs{display:flex; gap:6px; flex-wrap:wrap;}
+  nav.tabs button{
+    background:none; border:none; cursor:pointer;
+    color:var(--paper-dim);
+    font-size:0.92rem;
+    padding:8px 14px;
+    border-radius:999px;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  nav.tabs button:hover{ background:rgba(237,232,220,0.08); color:var(--paper); }
+  nav.tabs button.active{ background:var(--accent); color:var(--ink); font-weight:600; }
+
+  main{max-width:1080px; margin:0 auto; padding:0 24px;}
+  section.page{ display:none; padding:56px 0 80px; }
+  section.page.active{ display:block; animation:fade 0.35s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  /* ---- hero ---- */
+  .hero{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap:48px;
+    align-items:end;
+    padding-bottom:40px; margin-bottom:40px;
+    border-bottom:1px solid var(--line-dark);
+  }
+  .hero h1{ font-size:clamp(2.3rem, 5vw, 3.6rem); }
+  .hero .lead{ font-size:1.15rem; color:var(--ink-soft); max-width:46ch; }
+  .hero .stats{ display:flex; flex-direction:column; gap:18px; }
+  .stat .num{ font-family:'Fraunces', serif; font-size:2.1rem; color:var(--berry); }
+  .stat .label{ font-size:0.9rem; color:var(--ink-soft); }
+  .cta-row{ display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block; padding:12px 22px; border-radius:999px;
+    text-decoration:none; font-weight:600; font-size:0.95rem;
+    border:1px solid var(--ink); cursor:pointer; background:none;
+  }
+  .btn.primary{ background:var(--ink); color:var(--paper); }
+  .btn.primary:hover{ background:var(--ink-soft); }
+  .btn.ghost{ background:none; color:var(--ink); }
+  .btn.ghost:hover{ background:rgba(27,38,32,0.06); }
+
+  .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:8px; }
+  .pillar{ border-top:2px solid var(--accent); padding-top:14px; }
+  .pillar h3{ font-size:1.1rem; }
+  .pillar p{ font-size:0.95rem; color:var(--ink-soft); }
+
+  /* ---- articles ---- */
+  .section-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:28px; gap:16px; flex-wrap:wrap;}
+  .section-head h2{ font-size:1.9rem; }
+  .filter-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .chip{
+    border:1px solid var(--line-dark); background:none; padding:6px 14px;
+    border-radius:999px; font-size:0.85rem; cursor:pointer; color:var(--ink-soft);
+  }
+  .chip.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+  .article-list{ display:flex; flex-direction:column; }
+  .article-row{
+    display:grid; grid-template-columns: 120px 1fr auto; gap:24px;
+    padding:22px 0; border-bottom:1px solid var(--line-dark);
+    align-items:baseline;
+  }
+  .article-row .date{ font-size:0.82rem; color:var(--berry); font-weight:600; }
+  .article-row h3{ font-size:1.25rem; margin-bottom:4px; }
+  .article-row p{ font-size:0.92rem; color:var(--ink-soft); margin-bottom:0; }
+  .tag{ font-size:0.78rem; color:var(--ink-soft); white-space:nowrap; }
+
+  .episode-row{
+    display:grid; grid-template-columns: auto 1fr auto; gap:22px;
+    padding:22px 0; border-bottom:1px solid var(--line-dark);
+    align-items:center;
+  }
+  .episode-play{
+    width:44px; height:44px; border-radius:50%;
+    background:var(--ink); color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; flex-shrink:0; border:none; cursor:pointer;
+  }
+  .episode-play:hover{ background:var(--ink-soft); }
+  .episode-row h3{ font-size:1.2rem; margin-bottom:4px; }
+  .episode-row p{ font-size:0.92rem; color:var(--ink-soft); margin-bottom:0; }
+  .episode-meta{ font-size:0.82rem; color:var(--berry); font-weight:600; white-space:nowrap; text-align:right; }
+  .episode-meta .dur{ display:block; color:var(--ink-soft); font-weight:400; margin-top:2px; }
+
+  .contact-block{ max-width:520px; }
+  .contact-email{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--panel); color:var(--paper);
+    padding:16px 22px; border-radius:var(--radius);
+    font-family:'Fraunces', serif; font-size:1.15rem; font-style:italic;
+    margin:20px 0; text-decoration:none;
+  }
+  .contact-email:hover{ background:#1f2e3c; }
+
+  /* ---- donate ---- */
+  .donate-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
+  .amount-row{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 22px; }
+  .amount-row button{
+    padding:10px 18px; border-radius:999px; border:1px solid var(--ink);
+    background:none; cursor:pointer; font-weight:600; font-size:0.95rem;
+  }
+  .amount-row button.sel{ background:var(--ink); color:var(--paper); }
+  .panel{
+    background:var(--panel); color:var(--paper);
+    border-radius:var(--radius); padding:32px;
+  }
+  .panel h3{ color:var(--accent-soft); }
+  .panel p{ color:rgba(237,232,220,0.78); }
+  .impact-row{ display:flex; gap:20px; margin-top:20px; border-top:1px solid var(--line); padding-top:18px; }
+  .impact-row .num{ font-family:'Fraunces', serif; color:var(--accent-soft); font-size:1.6rem; }
+  .impact-row .label{ font-size:0.82rem; color:rgba(237,232,220,0.7); }
+
+  /* ---- resources ---- */
+  .res-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .res-card{ border:1px solid var(--line-dark); border-radius:var(--radius); padding:28px; }
+  .res-card h3{ font-size:1.3rem; }
+  .item-list{ display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 20px; }
+  .item-chip{ background:var(--paper-dim); border-radius:6px; padding:6px 12px; font-size:0.85rem; }
+  form{ display:flex; flex-direction:column; gap:12px; margin-top:6px; }
+  label{ font-size:0.85rem; color:var(--ink-soft); font-weight:600; }
+  input, textarea, select{
+    border:1px solid var(--line-dark); border-radius:var(--radius);
+    padding:10px 12px; font-family:inherit; font-size:0.95rem; background:var(--paper);
+    color: var(--ink);
+  }
+  textarea{ min-height:80px; resize:vertical; }
+  .note{ font-size:0.82rem; color:var(--ink-soft); margin-top:10px; }
+  .confirm{ display:none; background:var(--accent); color:var(--ink); padding:12px 16px; border-radius:var(--radius); font-size:0.9rem; margin-top:10px; font-weight:600; }
+  .confirm.show{ display:block; }
+
+  .name-story{
+    margin-top:56px; padding-top:48px; border-top:1px solid var(--line-dark);
+    display:grid; grid-template-columns: 0.9fr 1.4fr; gap:48px; align-items:start;
+  }
+  .name-story .word{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size:3.4rem; color:var(--berry); line-height:1;
+  }
+  .name-story .word small{
+    display:block; font-family:'Work Sans', sans-serif; font-style:normal;
+    font-weight:600; font-size:0.85rem; letter-spacing:0.02em; color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .name-story .story p{ font-size:1.05rem; color:var(--ink-soft); }
+  .name-story .story p:first-of-type{ color:var(--ink); font-size:1.15rem; }
+
+  footer{ border-top:1px solid var(--line-dark); padding:32px 24px; text-align:center; color:var(--ink-soft); font-size:0.85rem; }
+  footer .foot-brand{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:10px; opacity:0.7; }
+
+  @media (max-width: 780px){
+    .hero{ grid-template-columns:1fr; }
+    .name-story{ grid-template-columns:1fr; }
+    .pillars{ grid-template-columns:1fr; }
+    .donate-grid{ grid-template-columns:1fr; }
+    .res-grid{ grid-template-columns:1fr; }
+    .article-row{ grid-template-columns:1fr; gap:6px; }
+    .episode-row{ grid-template-columns:auto 1fr; }
+    .episode-meta{ grid-column:2; text-align:left; }
+    .nav-wrap{ flex-direction:column; align-items:flex-start; gap:10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-wrap">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="15" cy="15" r="14" stroke="#6EC6E8" stroke-width="1.4" opacity="0.55"/>
+        <path d="M6.5 18.5C9 20.7 12 21.8 15 21.8C18 21.8 21 20.7 23.5 18.5" stroke="#A9DEF0" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M15 6.5V17.5" stroke="#D97C99" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M15 6.5L18.6 8.6" stroke="#D97C99" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="15" cy="17.6" r="2.1" fill="#F6F4F0"/>
+      </svg>
+      <span class="brand-word">Harbor</span>
+    </div>
+    <nav class="tabs">
+      <button data-page="home" class="active">Ana səhifə</button>
+      <button data-page="articles">Məqalələr</button>
+      <button data-page="podcast">Podcast</button>
+      <button data-page="donate">Dəstək ol</button>
+      <button data-page="resources">Ehtiyaclar</button>
+      <button data-page="contact">Əlaqə</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <div>
+        <h1>Qafqazın trans və kuir<br>icması üçün media.</h1>
+        <p class="lead">Harbor — Qafqazda yaşayan trans və kuir icma üçün məlumat, qarşılıqlı dəstək və ehtiyac təminatı platformasıdır. Burada həmçinin öz hekayələrini bizimlə bölüşə bilərsən.</p>
+        <div class="cta-row">
+          <button class="btn primary" onclick="goPage('resources')">Kömək istə / Kömək et</button>
+          <button class="btn ghost" onclick="goPage('articles')">Məqalələrə bax</button>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num">128</div><div class="label">göndərilmiş ehtiyac əşyası</div></div>
+        <div class="stat"><div class="num">64</div><div class="label">dərc olunmuş məqalə</div></div>
+        <div class="stat"><div class="num">37</div><div class="label">aktiv iane sponsoru</div></div>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <h3>Oxu və öyrən</h3>
+        <p>Sağlamlıq, hüquq və şəxsi təcrübə mövzularında məqalə və bloq yazıları.</p>
+      </div>
+      <div class="pillar">
+        <h3>Dəstək ol</h3>
+        <p>İanənlə həm əşya, həm də əməliyyat xərclərinin qarşılanmasına kömək et.</p>
+      </div>
+      <div class="pillar">
+        <h3>Ehtiyacını bildir</h3>
+        <p>Anonim şəkildə lazım olan əşyanı bildir, icma səni tək qoymasın.</p>
+      </div>
+    </div>
+
+    <div class="name-story">
+      <div class="word">Harbor<small>liman</small></div>
+      <div class="story">
+        <p>Bir gəmi üçün liman sadəcə coğrafi nöqtə deyil. Fırtınadan sonra nəfəs alacağın, lövbər sala biləcəyin, heç kimin səni oradan qovmayacağını bildiyin yerdir.</p>
+        <p>Bu adı təsadüfən seçmədik. Hər kəsin həyatında bir "fırtına" anı olur. Özünü tanımaq, ailənə açılmaq, cəmiyyətin gözündə "fərqli" olmaq. Həmin anlarda lazım olan şey nə mükəmməl cavablardır, nə də tələsik qərarlar. Sadəcə dayana biləcəyin, nəfəs ala biləcəyin bir yer.</p>
+        <p>Harbor da elə bu məqsədlə var. Sənin liman anın. İstər burda sadəcə oxumağa, istər kömək istəməyə, istərsə də başqasına əl uzatmağa gəl.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section class="page" id="page-articles">
+    <div class="section-head">
+      <h2>Məqalələr &amp; Bloq</h2>
+      <div class="filter-row">
+        <button class="chip active" data-tag="hamısı">Hamısı</button>
+        <button class="chip" data-tag="sağlamlıq">Sağlamlıq</button>
+        <button class="chip" data-tag="hüquq">Hüquq</button>
+        <button class="chip" data-tag="hekayə">Şəxsi hekayə</button>
+      </div>
+    </div>
+    <div class="article-list" id="article-list"></div>
+  </section>
+
+  <!-- PODCAST -->
+  <section class="page" id="page-podcast">
+    <div class="section-head">
+      <h2>Podcast</h2>
+    </div>
+    <p>Harbor podcast bölümlərində icma üzvləri öz hekayələrini, mütəxəssislər isə sağlamlıq və hüquq mövzularını danışır. Yeni bölüm hər iki həftədən bir yayımlanır.</p>
+    <div class="article-list" id="episode-list"></div>
+  </section>
+
+  <!-- DONATE -->
+  <section class="page" id="page-donate">
+    <div class="section-head"><h2>Dəstək ol</h2></div>
+    <div class="donate-grid">
+      <div>
+        <p>Verdiyin hər ianə birbaşa iki istiqamətə yönəlir: icma üzvlərinin bildirdiyi ehtiyac əşyalarının alınması və platformanın davamlı fəaliyyəti. Məbləği seç və ya öz məbləğini yaz.</p>
+        <div class="amount-row" id="amount-row">
+          <button data-amt="10">10 AZN</button>
+          <button data-amt="25">25 AZN</button>
+          <button data-amt="50">50 AZN</button>
+          <button data-amt="100">100 AZN</button>
+        </div>
+        <input type="number" id="customAmt" placeholder="Öz məbləğini yaz (AZN)" style="max-width:240px; margin-bottom:16px;">
+        <div><button class="btn primary" onclick="submitDonation()">İanə et</button></div>
+        <div class="confirm" id="donate-confirm">Təşəkkürlər. Dəstəyin qeydə alındı.</div>
+        <p class="note">Qeyd: bu, nümunə interfeysdir. Real ödəniş inteqrasiyası (məs. Stripe, Payriff) backend qoşulduqdan sonra aktivləşəcək.</p>
+      </div>
+      <div class="panel">
+        <h3>İanə haraya gedir?</h3>
+        <p>Şəffaflıq bizim üçün önəmlidir. Hər ay toplanan məbləğ və xərclənmə hesabatı bu bölmədə yenilənəcək.</p>
+        <div class="impact-row">
+          <div><div class="num">62%</div><div class="label">əşya təminatı</div></div>
+          <div><div class="num">28%</div><div class="label">platforma xərcləri</div></div>
+          <div><div class="num">10%</div><div class="label">ehtiyat fond</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="page" id="page-resources">
+    <div class="section-head"><h2>Ehtiyaclar</h2></div>
+    <div class="res-grid">
+      <div class="res-card">
+        <h3>Kömək istəyirəm</h3>
+        <p>Sənə lazım olan əşyanı anonim şəkildə bildir. Məlumatların yalnız komanda tərəfindən görünəcək.</p>
+        <div class="item-list">
+          <span class="item-chip">Binder</span>
+          <span class="item-chip">Body tape</span>
+          <span class="item-chip">Paket / packer</span>
+          <span class="item-chip">Gigiyena vasitələri</span>
+          <span class="item-chip">Digər</span>
+        </div>
+        <form onsubmit="event.preventDefault(); showConfirm('req-confirm');">
+          <div>
+            <label>Nəyə ehtiyacın var?</label>
+            <select required>
+              <option value="">Seç...</option>
+              <option>Binder</option>
+              <option>Body tape</option>
+              <option>Packer</option>
+              <option>Gigiyena vasitələri</option>
+              <option>Digər</option>
+            </select>
+          </div>
+          <div>
+            <label>Əlavə qeyd (ölçü, təcililik və s.)</label>
+            <textarea placeholder="İstəyə bağlı"></textarea>
+          </div>
+          <div>
+            <label>Sənə necə çatmaq olar? (anonim rumuz, email, Telegram və s.)</label>
+            <input type="text" required placeholder="Məs. @rumuz və ya email">
+          </div>
+          <button type="submit" class="btn primary" style="align-self:flex-start;">Göndər</button>
+          <div class="confirm" id="req-confirm">Qəbul olundu. Komanda tezliklə səninlə əlaqə saxlayacaq.</div>
+        </form>
+      </div>
+
+      <div class="res-card">
+        <h3>Kömək etmək istəyirəm</h3>
+        <p>Əşya bağışlamaq və ya çatdırılmasına dəstək olmaq istəyirsənsə, formu doldur.</p>
+        <div class="item-list">
+          <span class="item-chip">Əşya bağışlaram</span>
+          <span class="item-chip">Pulla dəstək</span>
+          <span class="item-chip">Çatdırılmada köməkçi oluram</span>
+        </div>
+        <form onsubmit="event.preventDefault(); showConfirm('help-confirm');">
+          <div>
+            <label>Necə kömək etmək istəyirsən?</label>
+            <select required>
+              <option value="">Seç...</option>
+              <option>Əşya bağışlayacam</option>
+              <option>Pulla dəstək olacam</option>
+              <option>Çatdırılmada köməkçi olacam</option>
+            </select>
+          </div>
+          <div>
+            <label>Əlaqə (email və ya Telegram)</label>
+            <input type="text" required placeholder="Məs. email@domen.com">
+          </div>
+          <button type="submit" class="btn primary" style="align-self:flex-start;">Göndər</button>
+          <div class="confirm" id="help-confirm">Təşəkkürlər. Tezliklə səninlə əlaqə saxlanılacaq.</div>
+        </form>
+      </div>
+    </div>
+    <p class="note" style="margin-top:24px;">Bütün müraciətlər məxfi saxlanılır. Real istifadə üçün formaların təhlükəsiz backend (məs. şifrələnmiş verilənlər bazası) ilə qoşulması tövsiyə olunur.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="page" id="page-contact">
+    <div class="section-head"><h2>Əlaqə</h2></div>
+    <div class="contact-block">
+      <p>Sualın, təklifin, əməkdaşlıq fikrin var, ya da sadəcə bizimlə əlaqə saxlamaq istəyirsən? Aşağıdakı email ünvanına yaza bilərsən.</p>
+      <a class="contact-email" href="mailto:harbor.contactus@gmail.com">harbor.contactus@gmail.com</a>
+      <p class="note">Yazışmalar məxfi saxlanılır. Cavab adətən bir neçə gün ərzində gəlir.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-brand">
+    <svg width="18" height="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="15" cy="15" r="14" stroke="#44586A" stroke-width="1.4" opacity="0.5"/>
+      <path d="M6.5 18.5C9 20.7 12 21.8 15 21.8C18 21.8 21 20.7 23.5 18.5" stroke="#44586A" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M15 6.5V17.5" stroke="#44586A" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M15 6.5L18.6 8.6" stroke="#44586A" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="15" cy="17.6" r="2.1" fill="#F6F4F0"/>
+    </svg>
+    Harbor
+  </div>
+  Harbor. İcma üçün, icma tərəfindən. © 2026
+</footer>
+
+<script>
+  // ---- navigation ----
+  function goPage(id){
+    document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelector('nav.tabs button[data-page="'+id+'"]').classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.querySelectorAll('nav.tabs button').forEach(btn=>{
+    btn.addEventListener('click', ()=> goPage(btn.dataset.page));
+  });
+
+  // ---- articles data (loaded from content/articles.json, editable via /admin) ----
+  let articles = [];
+  let currentFilter = 'hamısı';
+
+  function renderArticles(filter){
+    currentFilter = filter;
+    const list = document.getElementById('article-list');
+    list.innerHTML = '';
+    if(articles.length === 0){
+      list.innerHTML = '<p style="color:var(--ink-soft);">Hələ məqalə yoxdur.</p>';
+      return;
+    }
+    articles.filter(a => filter==='hamısı' || a.tag===filter).forEach(a=>{
+      const row = document.createElement('div');
+      row.className = 'article-row';
+      row.innerHTML = `<div class="date">${a.date}</div>
+        <div><h3>${a.title}</h3><p>${a.desc}</p></div>
+        <div class="tag">${a.tag}</div>`;
+      list.appendChild(row);
+    });
+  }
+
+  fetch('content/articles.json')
+    .then(r => r.json())
+    .then(data => {
+      articles = data.articles || [];
+      renderArticles(currentFilter);
+    })
+    .catch(() => {
+      document.getElementById('article-list').innerHTML = '<p style="color:var(--ink-soft);">Məqalələr yüklənə bilmədi.</p>';
+    });
+
+  document.querySelectorAll('.chip').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      renderArticles(chip.dataset.tag);
+    });
+  });
+
+  // ---- podcast episodes (loaded from content/episodes.json, editable via /admin) ----
+  function renderEpisodes(episodes){
+    const list = document.getElementById('episode-list');
+    list.innerHTML = '';
+    if(!episodes || episodes.length === 0){
+      list.innerHTML = '<p style="color:var(--ink-soft);">Hələ bölüm yoxdur.</p>';
+      return;
+    }
+    episodes.forEach(e=>{
+      const row = document.createElement('div');
+      row.className = 'episode-row';
+      row.innerHTML = `<button class="episode-play" aria-label="Dinlə">▶</button>
+        <div><h3>${e.title}</h3><p>${e.desc}</p></div>
+        <div class="episode-meta">Bölüm ${e.num}<span class="dur">${e.dur}</span></div>`;
+      list.appendChild(row);
+    });
+  }
+
+  fetch('content/episodes.json')
+    .then(r => r.json())
+    .then(data => renderEpisodes(data.episodes))
+    .catch(() => {
+      document.getElementById('episode-list').innerHTML = '<p style="color:var(--ink-soft);">Bölümlər yüklənə bilmədi.</p>';
+    });
+
+  // ---- donate ----
+  let selectedAmt = null;
+  document.querySelectorAll('#amount-row button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('#amount-row button').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel');
+      selectedAmt = b.dataset.amt;
+      document.getElementById('customAmt').value = '';
+    });
+  });
+  function submitDonation(){
+    const custom = document.getElementById('customAmt').value;
+    const amt = custom || selectedAmt;
+    const box = document.getElementById('donate-confirm');
+    if(!amt){ alert('Zəhmət olmasa məbləğ seç.'); return; }
+    box.textContent = 'Təşəkkürlər. ' + amt + ' AZN dəstəyin qeydə alındı.';
+    box.classList.add('show');
+  }
+
+  function showConfirm(id){
+    document.getElementById(id).classList.add('show');
+  }
+</script>
+
+</body>
+</html>
