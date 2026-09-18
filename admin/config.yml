@@ -30,6 +30,7 @@ collections:
                 options: ["sağlamlıq", "hüquq", "hekayə"]
               - { label: "Başlıq", name: "title", widget: "string" }
               - { label: "Təsvir", name: "desc", widget: "text" }
+              - { label: "Əsas mətn", name: "body", widget: "markdown" }
 
   - name: "podcast"
     label: "Podcast"
