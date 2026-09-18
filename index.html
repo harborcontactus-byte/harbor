@@ -7,6 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiByeD0iNiIgZmlsbD0iIzFEMjczMyIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iMTUiIHI9IjEyLjUiIHN0cm9rZT0iIzZFQzZFOCIgc3Ryb2tlLXdpZHRoPSIxLjQiIG9wYWNpdHk9IjAuNTUiLz48cGF0aCBkPSJNNi41IDE4LjVDOSAyMC43IDEyIDIxLjggMTUgMjEuOEMxOCAyMS44IDIxIDIwLjcgMjMuNSAxOC41IiBzdHJva2U9IiNBOURFRjAiIHN0cm9rZS13aWR0aD0iMS43IiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMTUgNi41VjE3LjUiIHN0cm9rZT0iI0Q5N0M5OSIgc3Ryb2tlLXdpZHRoPSIxLjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xNSA2LjVMMTguNiA4LjYiIHN0cm9rZT0iI0Q5N0M5OSIgc3Ryb2tlLXdpZHRoPSIxLjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjE1IiBjeT0iMTcuNiIgcj0iMi4xIiBmaWxsPSIjRjZGNEYwIi8+PC9zdmc+">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
 <style>
   :root{
     --ink:#1D2733;
@@ -205,11 +206,37 @@
     display:grid; grid-template-columns: 120px 1fr auto; gap:24px;
     padding:22px 0; border-bottom:1px solid var(--line-dark);
     align-items:baseline;
+    width:100%; background:none; border-left:none; border-right:none; border-top:none;
+    cursor:pointer; text-align:left; font-family:inherit;
   }
+  .article-row:hover h3{ color:var(--berry); }
   .article-row .date{ font-size:0.82rem; color:var(--berry); font-weight:600; }
-  .article-row h3{ font-size:1.25rem; margin-bottom:4px; }
+  .article-row h3{ font-size:1.25rem; margin-bottom:4px; transition:color 0.15s ease; }
   .article-row p{ font-size:0.92rem; color:var(--ink-soft); margin-bottom:0; }
   .tag{ font-size:0.78rem; color:var(--ink-soft); white-space:nowrap; }
+
+  /* ---- article detail ---- */
+  .back-link{
+    background:none; border:none; cursor:pointer; color:var(--ink-soft);
+    font-size:0.9rem; padding:0; margin-bottom:28px; display:inline-flex;
+    align-items:center; gap:6px;
+  }
+  .back-link:hover{ color:var(--ink); }
+  .article-detail .tag{ color:var(--berry); font-weight:600; text-transform:uppercase; font-size:0.78rem; letter-spacing:0.03em; }
+  .article-detail .date{ color:var(--ink-soft); font-size:0.85rem; margin-left:10px; }
+  .article-detail h1{ font-size:clamp(1.8rem, 4vw, 2.6rem); margin-top:10px; max-width:32ch; }
+  .article-body{ max-width:68ch; font-size:1.05rem; color:var(--ink); margin-top:24px; }
+  .article-body p{ max-width:none; }
+  .article-body h2{ font-size:1.4rem; margin-top:1.4em; }
+  .article-body h3{ font-size:1.15rem; margin-top:1.2em; }
+  .article-body ul, .article-body ol{ padding-left:1.3em; margin:0 0 1em 0; }
+  .article-body li{ margin-bottom:0.4em; }
+  .article-body a{ color:var(--berry); text-decoration:underline; }
+  .article-body blockquote{
+    border-left:3px solid var(--accent); margin:1.4em 0; padding:2px 0 2px 18px;
+    color:var(--ink-soft); font-style:italic;
+  }
+  .article-body img{ max-width:100%; border-radius:var(--radius); margin:1em 0; }
 
   .episode-row{
     display:grid; grid-template-columns: auto 1fr auto; gap:22px;
@@ -499,6 +526,16 @@
     <div class="article-list" id="article-list"></div>
   </section>
 
+  <!-- ARTICLE DETAIL -->
+  <section class="page" id="page-article-detail">
+    <button class="back-link" onclick="goPage('articles')">← Məqalələrə qayıt</button>
+    <div class="article-detail">
+      <div><span class="tag" id="detail-tag"></span><span class="date" id="detail-date"></span></div>
+      <h1 id="detail-title"></h1>
+      <div class="article-body" id="detail-body"></div>
+    </div>
+  </section>
+
   <!-- PODCAST -->
   <section class="page" id="page-podcast">
     <div class="section-head">
@@ -685,14 +722,30 @@
   });
 
   // ---- navigation ----
-  function goPage(id){
+  function goPage(id, navId){
+    navId = navId || id;
     document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));
     document.getElementById('page-'+id).classList.add('active');
     document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
-    document.querySelector('nav.tabs button[data-page="'+id+'"]').classList.add('active');
+    const navBtn = document.querySelector('nav.tabs button[data-page="'+navId+'"]');
+    if(navBtn) navBtn.classList.add('active');
     navTabs.classList.remove('open');
     menuToggle.setAttribute('aria-expanded', 'false');
     window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // ---- article detail ----
+  function openArticle(a){
+    document.getElementById('detail-tag').textContent = a.tag || '';
+    document.getElementById('detail-date').textContent = a.date ? ' · ' + a.date : '';
+    document.getElementById('detail-title').textContent = a.title || '';
+    const bodyEl = document.getElementById('detail-body');
+    if(a.body && a.body.trim() !== ''){
+      bodyEl.innerHTML = (typeof marked !== 'undefined') ? marked.parse(a.body) : a.body;
+    } else {
+      bodyEl.innerHTML = '<p>' + (a.desc || '') + '</p>';
+    }
+    goPage('article-detail', 'articles');
   }
   document.querySelectorAll('nav.tabs button').forEach(btn=>{
     btn.addEventListener('click', ()=> goPage(btn.dataset.page));
@@ -711,11 +764,13 @@
       return;
     }
     articles.filter(a => filter==='hamısı' || a.tag===filter).forEach(a=>{
-      const row = document.createElement('div');
+      const row = document.createElement('button');
+      row.type = 'button';
       row.className = 'article-row';
       row.innerHTML = `<div class="date">${a.date}</div>
         <div><h3>${a.title}</h3><p>${a.desc}</p></div>
         <div class="tag">${a.tag}</div>`;
+      row.addEventListener('click', ()=> openArticle(a));
       list.appendChild(row);
     });
   }
@@ -733,7 +788,7 @@
       card.type = 'button';
       card.className = 'latest-card';
       card.innerHTML = `<div><div class="tag">${a.tag}</div><h3>${a.title}</h3></div><div class="date">${a.date}</div>`;
-      card.addEventListener('click', ()=> goPage('articles'));
+      card.addEventListener('click', ()=> openArticle(a));
       el.appendChild(card);
     });
   }
