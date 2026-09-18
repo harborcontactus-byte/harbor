@@ -25,7 +25,11 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--paper);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(110,198,232,0.10), transparent 42%),
+      radial-gradient(circle at 88% 78%, rgba(217,124,153,0.08), transparent 45%),
+      var(--paper);
+    background-attachment:fixed;
     color:var(--ink);
     font-family:'Work Sans', sans-serif;
     font-size:16px;
@@ -43,6 +47,19 @@
   a{color:inherit;}
   button{font-family:inherit;}
 
+  /* ---- announcement bar ---- */
+  .announce-bar{
+    background:var(--accent); color:var(--ink);
+    text-align:center; padding:10px 44px 10px 16px;
+    font-size:0.85rem; font-weight:600; position:relative;
+  }
+  .announce-bar button{
+    position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer; color:var(--ink); font-size:0.95rem;
+    line-height:1; padding:4px;
+  }
+  .announce-bar.hidden{ display:none; }
+
   /* ---- top nav ---- */
   header.site{
     position:sticky; top:0; z-index:50;
@@ -51,6 +68,7 @@
     border-bottom:1px solid var(--line);
   }
   .nav-wrap{
+    position:relative;
     max-width:1080px; margin:0 auto;
     display:flex; align-items:center; justify-content:space-between;
     padding:18px 24px;
@@ -67,7 +85,7 @@
     color:var(--accent-soft);
     letter-spacing:0.2px;
   }
-  nav.tabs{display:flex; gap:6px; flex-wrap:wrap;}
+  nav.tabs{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
   nav.tabs button{
     background:none; border:none; cursor:pointer;
     color:var(--paper-dim);
@@ -78,6 +96,17 @@
   }
   nav.tabs button:hover{ background:rgba(237,232,220,0.08); color:var(--paper); }
   nav.tabs button.active{ background:var(--accent); color:var(--ink); font-weight:600; }
+
+  .socials{ display:flex; align-items:center; gap:14px; margin-left:16px; padding-left:16px; border-left:1px solid var(--line); }
+  .socials a{ color:var(--paper-dim); display:flex; opacity:0.85; transition:opacity 0.15s ease, color 0.15s ease; }
+  .socials a:hover{ opacity:1; color:var(--accent-soft); }
+  .socials svg{ width:17px; height:17px; }
+
+  .menu-toggle{
+    display:none; background:none; border:none; color:var(--paper);
+    cursor:pointer; padding:6px; margin-left:8px;
+  }
+  .menu-toggle svg{ display:block; }
 
   main{max-width:1080px; margin:0 auto; padding:0 24px;}
   section.page{ display:none; padding:56px 0 80px; }
@@ -107,10 +136,59 @@
   .btn.ghost{ background:none; color:var(--ink); }
   .btn.ghost:hover{ background:rgba(27,38,32,0.06); }
 
+  /* ---- impact numbers block ---- */
+  .impact-block{
+    background:var(--panel); color:var(--paper);
+    border-radius:var(--radius); padding:40px 32px; margin:0 0 48px;
+  }
+  .impact-block h2{ color:var(--accent-soft); font-size:1.7rem; margin-bottom:26px; }
+  .impact-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .impact-card .icon{ color:var(--accent-soft); margin-bottom:12px; }
+  .impact-card .num{ font-family:'Fraunces', serif; font-size:2.2rem; color:var(--accent-soft); }
+  .impact-card .label{ font-size:0.88rem; color:rgba(237,232,220,0.75); margin:0; }
+
+  /* ---- pillars (take action icon-row) ---- */
   .pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:8px; }
-  .pillar{ border-top:2px solid var(--accent); padding-top:14px; }
+  .pillar{ padding-top:4px; }
+  .pillar-icon{
+    width:52px; height:52px; border-radius:50%;
+    background:var(--paper-dim); color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:14px;
+  }
   .pillar h3{ font-size:1.1rem; }
   .pillar p{ font-size:0.95rem; color:var(--ink-soft); }
+
+  /* ---- latest articles preview (home) ---- */
+  .latest-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .latest-card{
+    background:var(--panel); color:var(--paper);
+    border-radius:var(--radius); padding:26px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:170px; cursor:pointer; border:none; text-align:left;
+    font-family:inherit;
+  }
+  .latest-card:hover{ background:#1f2e3c; }
+  .latest-card .tag{
+    color:var(--accent-soft); font-size:0.76rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .latest-card h3{ color:var(--paper); font-size:1.1rem; margin:10px 0 0; }
+  .latest-card .date{ color:rgba(237,232,220,0.6); font-size:0.8rem; margin-top:14px; }
+
+  /* ---- newsletter ---- */
+  .newsletter-block{
+    margin-top:56px; padding-top:48px; border-top:1px solid var(--line-dark);
+    text-align:center;
+  }
+  .newsletter-block h2{ margin-bottom:8px; }
+  .newsletter-block p{ margin:0 auto 20px; }
+  .newsletter-form{
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+    max-width:420px; margin:0 auto;
+  }
+  .newsletter-form input{ flex:1; min-width:200px; }
+  .newsletter-block .confirm{ max-width:420px; margin:14px auto 0; }
 
   /* ---- articles ---- */
   .section-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:28px; gap:16px; flex-wrap:wrap;}
@@ -212,8 +290,38 @@
   .name-story .story p{ font-size:1.05rem; color:var(--ink-soft); }
   .name-story .story p:first-of-type{ color:var(--ink); font-size:1.15rem; }
 
-  footer{ border-top:1px solid var(--line-dark); padding:32px 24px; text-align:center; color:var(--ink-soft); font-size:0.85rem; }
-  footer .foot-brand{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:10px; opacity:0.7; }
+  /* ---- footer ---- */
+  footer{ border-top:1px solid var(--line-dark); padding:44px 24px 24px; color:var(--ink-soft); font-size:0.85rem; }
+  .foot-grid{
+    max-width:1080px; margin:0 auto;
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:32px;
+  }
+  .foot-brand{ display:flex; flex-direction:column; gap:8px; max-width:260px; }
+  .foot-brand .row{ display:flex; align-items:center; gap:8px; color:var(--ink); font-weight:600; opacity:0.85; }
+  .foot-brand p{ margin:0; font-size:0.82rem; }
+  .foot-links{ display:flex; flex-direction:column; gap:9px; }
+  .foot-links span{ font-size:0.78rem; text-transform:none; color:var(--ink); font-weight:600; margin-bottom:2px; }
+  .foot-links button{ background:none; border:none; padding:0; text-align:left; color:var(--ink-soft); font-size:0.85rem; cursor:pointer; }
+  .foot-links button:hover{ color:var(--ink); }
+  .foot-socials{ display:flex; flex-direction:column; gap:9px; }
+  .foot-socials span{ font-size:0.78rem; color:var(--ink); font-weight:600; margin-bottom:2px; }
+  .foot-socials .icons{ display:flex; gap:14px; }
+  .foot-socials a{ color:var(--ink-soft); display:flex; }
+  .foot-socials a:hover{ color:var(--berry); }
+  .foot-bottom{ max-width:1080px; margin:32px auto 0; padding-top:18px; border-top:1px solid var(--line-dark); text-align:center; font-size:0.8rem; }
+
+  /* ---- quick exit button ---- */
+  .exit-btn{
+    position:fixed; bottom:20px; right:20px; z-index:200;
+    width:48px; height:48px; border-radius:50%;
+    background:var(--ink); color:var(--paper);
+    border:1px solid var(--accent-soft);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:0 3px 14px rgba(0,0,0,0.22);
+    transition:background 0.15s ease, transform 0.15s ease;
+  }
+  .exit-btn:hover{ background:var(--berry); transform:scale(1.05); }
+  .exit-btn:focus-visible{ outline:2px solid var(--accent-soft); outline-offset:2px; }
 
   @media (max-width: 780px){
     .hero{ grid-template-columns:1fr; }
@@ -224,11 +332,31 @@
     .article-row{ grid-template-columns:1fr; gap:6px; }
     .episode-row{ grid-template-columns:auto 1fr; }
     .episode-meta{ grid-column:2; text-align:left; }
-    .nav-wrap{ flex-direction:column; align-items:flex-start; gap:10px; }
+    .impact-cards{ grid-template-columns:1fr; gap:20px; }
+    .latest-cards{ grid-template-columns:1fr; }
+
+    .nav-wrap{ padding:14px 20px; }
+    .menu-toggle{ display:flex; }
+    nav.tabs{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; align-items:stretch; gap:2px;
+      background:var(--ink); border-bottom:1px solid var(--line);
+      padding:8px 20px 16px;
+    }
+    nav.tabs.open{ display:flex; }
+    nav.tabs button{ text-align:left; padding:10px 12px; }
+    .socials{ margin:10px 0 0; padding:14px 12px 0; border-left:none; border-top:1px solid var(--line); }
+
+    .foot-grid{ flex-direction:column; gap:26px; }
   }
 </style>
 </head>
 <body>
+
+<div class="announce-bar" id="announceBar">
+  <span>Təcili köməyə ehtiyacın varsa, "Ehtiyaclar" bölməsi həmişə açıqdır.</span>
+  <button id="announceClose" aria-label="Bağla">✕</button>
+</div>
 
 <header class="site">
   <div class="nav-wrap">
@@ -242,13 +370,30 @@
       </svg>
       <span class="brand-word">Harbor</span>
     </div>
-    <nav class="tabs">
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menyunu aç" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 6H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M4 12H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M4 18H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <nav class="tabs" id="navTabs">
       <button data-page="home" class="active">Ana səhifə</button>
       <button data-page="articles">Məqalələr</button>
       <button data-page="podcast">Podcast</button>
       <button data-page="donate">Dəstək ol</button>
       <button data-page="resources">Ehtiyaclar</button>
       <button data-page="contact">Əlaqə</button>
+      <div class="socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+        </a>
+        <a href="https://t.me" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 3L2 10.5L9.5 13M21 3L14.5 21L9.5 13M21 3L9.5 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
     </nav>
   </div>
 </header>
@@ -273,19 +418,51 @@
       </div>
     </div>
 
+    <div class="impact-block">
+      <h2>Təsirimiz rəqəmlərdə</h2>
+      <div class="impact-cards">
+        <div class="impact-card">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8L12 3L3 8V16L12 21L21 16V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 8L12 13L21 8" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 13V21" stroke="currentColor" stroke-width="1.6"/></svg></div>
+          <div class="num">128</div>
+          <p class="label">göndərilmiş ehtiyac əşyası</p>
+        </div>
+        <div class="impact-card">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 3H14L19 8V21H6V3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3V8H19" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12H16M9 15.5H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <div class="num">64</div>
+          <p class="label">dərc olunmuş məqalə və bölüm</p>
+        </div>
+        <div class="impact-card">
+          <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21C12 21 4 15.5 4 9.8C4 6.6 6.3 4.5 9 4.5C10.5 4.5 11.6 5.2 12 6.1C12.4 5.2 13.5 4.5 15 4.5C17.7 4.5 20 6.6 20 9.8C20 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+          <div class="num">37</div>
+          <p class="label">aktiv iane sponsoru</p>
+        </div>
+      </div>
+    </div>
+
     <div class="pillars">
       <div class="pillar">
+        <div class="pillar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12V20H5.5C4.7 20 4 19.3 4 18.5V5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 5.5C20 4.7 19.3 4 18.5 4H12V20H18.5C19.3 20 20 19.3 20 18.5V5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
         <h3>Oxu və öyrən</h3>
         <p>Sağlamlıq, hüquq və şəxsi təcrübə mövzularında məqalə və bloq yazıları.</p>
       </div>
       <div class="pillar">
+        <div class="pillar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21C12 21 4 15.5 4 9.8C4 6.6 6.3 4.5 9 4.5C10.5 4.5 11.6 5.2 12 6.1C12.4 5.2 13.5 4.5 15 4.5C17.7 4.5 20 6.6 20 9.8C20 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
         <h3>Dəstək ol</h3>
         <p>İanənlə həm əşya, həm də əməliyyat xərclərinin qarşılanmasına kömək et.</p>
       </div>
       <div class="pillar">
+        <div class="pillar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3V13M12 3L8.5 5.5M12 3L15.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12V18.5C5 19.3 5.7 20 6.5 20H17.5C18.3 20 19 19.3 19 18.5V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <h3>Ehtiyacını bildir</h3>
         <p>Anonim şəkildə lazım olan əşyanı bildir, icma səni tək qoymasın.</p>
       </div>
+    </div>
+
+    <div class="section-head" style="margin-top:56px;">
+      <h2>Son yazılar</h2>
+      <button class="btn ghost" onclick="goPage('articles')">Hamısına bax →</button>
+    </div>
+    <div class="latest-cards" id="latest-cards">
+      <p style="color:var(--ink-soft);">Yüklənir...</p>
     </div>
 
     <div class="name-story">
@@ -295,6 +472,16 @@
         <p>Bu adı təsadüfən seçmədik. Hər kəsin həyatında bir "fırtına" anı olur. Özünü tanımaq, ailənə açılmaq, cəmiyyətin gözündə "fərqli" olmaq. Həmin anlarda lazım olan şey nə mükəmməl cavablardır, nə də tələsik qərarlar. Sadəcə dayana biləcəyin, nəfəs ala biləcəyin bir yer.</p>
         <p>Harbor da elə bu məqsədlə var. Sənin liman anın. İstər burda sadəcə oxumağa, istər kömək istəməyə, istərsə də başqasına əl uzatmağa gəl.</p>
       </div>
+    </div>
+
+    <div class="newsletter-block">
+      <h2>Bizdən xəbərdar ol</h2>
+      <p>Yeni məqalə, podcast bölümü və elanlardan xəbərdar olmaq üçün emailini burax.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); showConfirm('news-confirm');">
+        <input type="email" required placeholder="Email ünvanın">
+        <button type="submit" class="btn primary">Abunə ol</button>
+      </form>
+      <div class="confirm" id="news-confirm">Təşəkkürlər, abunə oldun.</div>
     </div>
   </section>
 
@@ -432,26 +619,79 @@
 </main>
 
 <footer>
-  <div class="foot-brand">
-    <svg width="18" height="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="15" cy="15" r="14" stroke="#44586A" stroke-width="1.4" opacity="0.5"/>
-      <path d="M6.5 18.5C9 20.7 12 21.8 15 21.8C18 21.8 21 20.7 23.5 18.5" stroke="#44586A" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M15 6.5V17.5" stroke="#44586A" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M15 6.5L18.6 8.6" stroke="#44586A" stroke-width="1.8" stroke-linecap="round"/>
-      <circle cx="15" cy="17.6" r="2.1" fill="#F6F4F0"/>
-    </svg>
-    Harbor
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <div class="row">
+        <svg width="18" height="18" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="15" cy="15" r="14" stroke="#44586A" stroke-width="1.4" opacity="0.5"/>
+          <path d="M6.5 18.5C9 20.7 12 21.8 15 21.8C18 21.8 21 20.7 23.5 18.5" stroke="#44586A" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M15 6.5V17.5" stroke="#44586A" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M15 6.5L18.6 8.6" stroke="#44586A" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="15" cy="17.6" r="2.1" fill="#F6F4F0"/>
+        </svg>
+        Harbor
+      </div>
+      <p>Qafqazın trans və kuir icması üçün media. İcma üçün, icma tərəfindən.</p>
+    </div>
+
+    <div class="foot-links">
+      <span>Səhifələr</span>
+      <button onclick="goPage('articles')">Məqalələr</button>
+      <button onclick="goPage('resources')">Ehtiyaclar</button>
+      <button onclick="goPage('donate')">Dəstək ol</button>
+      <button onclick="goPage('contact')">Əlaqə</button>
+    </div>
+
+    <div class="foot-socials">
+      <span>Bizi izlə</span>
+      <div class="icons">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+        </a>
+        <a href="https://t.me" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 3L2 10.5L9.5 13M21 3L14.5 21L9.5 13M21 3L9.5 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
   </div>
-  Harbor. İcma üçün, icma tərəfindən. © 2026
+  <div class="foot-bottom">Harbor. İcma üçün, icma tərəfindən. © 2026</div>
 </footer>
 
+<button class="exit-btn" id="exitBtn" aria-label="Səhifədən tez çıx" title="Tez çıxış (Esc)">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3V13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 7.5C4.1 9 3 11.2 3 13.5C3 17.9 7 21.5 12 21.5C17 21.5 21 17.9 21 13.5C21 11.2 19.9 9 18 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+
 <script>
+  // ---- announcement bar ----
+  document.getElementById('announceClose').addEventListener('click', ()=>{
+    document.getElementById('announceBar').classList.add('hidden');
+  });
+
+  // ---- quick exit ----
+  function quickExit(){
+    window.location.replace('https://www.google.com');
+  }
+  document.getElementById('exitBtn').addEventListener('click', quickExit);
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') quickExit();
+  });
+
+  // ---- mobile menu ----
+  const menuToggle = document.getElementById('menuToggle');
+  const navTabs = document.getElementById('navTabs');
+  menuToggle.addEventListener('click', ()=>{
+    const isOpen = navTabs.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
   // ---- navigation ----
   function goPage(id){
     document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));
     document.getElementById('page-'+id).classList.add('active');
     document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
     document.querySelector('nav.tabs button[data-page="'+id+'"]').classList.add('active');
+    navTabs.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
     window.scrollTo({top:0, behavior:'smooth'});
   }
   document.querySelectorAll('nav.tabs button').forEach(btn=>{
@@ -480,14 +720,34 @@
     });
   }
 
+  function renderLatestCards(list){
+    const el = document.getElementById('latest-cards');
+    if(!el) return;
+    el.innerHTML = '';
+    if(!list || list.length === 0){
+      el.innerHTML = '<p style="color:var(--ink-soft);">Hələ məqalə yoxdur.</p>';
+      return;
+    }
+    list.slice(0,3).forEach(a=>{
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'latest-card';
+      card.innerHTML = `<div><div class="tag">${a.tag}</div><h3>${a.title}</h3></div><div class="date">${a.date}</div>`;
+      card.addEventListener('click', ()=> goPage('articles'));
+      el.appendChild(card);
+    });
+  }
+
   fetch('content/articles.json')
     .then(r => r.json())
     .then(data => {
       articles = data.articles || [];
       renderArticles(currentFilter);
+      renderLatestCards(articles);
     })
     .catch(() => {
       document.getElementById('article-list').innerHTML = '<p style="color:var(--ink-soft);">Məqalələr yüklənə bilmədi.</p>';
+      document.getElementById('latest-cards').innerHTML = '<p style="color:var(--ink-soft);">Məqalələr yüklənə bilmədi.</p>';
     });
 
   document.querySelectorAll('.chip').forEach(chip=>{
